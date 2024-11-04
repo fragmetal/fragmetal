@@ -10,6 +10,10 @@
             padding: 0;
             height: 100%;
         }
+        #iframeContainer {
+            width: 100%;
+            height: 100%;
+        }
         iframe {
             width: 100%;
             height: 100%;
@@ -18,6 +22,14 @@
     </style>
 </head>
 <body>
-    <iframe src="https://replit.com/"></iframe>
+    <div id="iframeContainer"></div>
+    <script>
+        // Create an iframe element
+        const iframe = document.createElement('iframe');
+        // Set the source of the iframe
+        iframe.src = "https://replit.com/@fragmetal88/RelayJS";
+        // Append the iframe to the container div
+        document.getElementById('iframeContainer').appendChild(iframe);
+    </script>
 </body>
 </html>
