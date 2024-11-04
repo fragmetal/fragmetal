@@ -1,4 +1,4 @@
-// Function to update the iframe with the entered URL using corsproxy.io
+// Function to update the iframe with the entered URL using the local CORS proxy
 function openWebsite(event) {
     event.preventDefault(); // Prevent form submission
     const urlInput = document.getElementById('urlInput');
@@ -8,8 +8,8 @@ function openWebsite(event) {
         if (!url.startsWith('http://') && !url.startsWith('https://')) {
             url = 'http://' + url; // Add http if not present
         }
-        // Use corsproxy.io to proxy the request
-        webFrame.src = `https://corsproxy.io/?${encodeURIComponent(url)}`;
+        // Use the local CORS proxy to proxy the request
+        webFrame.src = `http://localhost:8080/${encodeURIComponent(url)}`;
     }
 }
 
