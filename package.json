@@ -10,7 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "cors-anywhere": "^0.4.4",
     "express": "^4.21.1",
     "http-proxy-middleware": "^3.0.3"
   }

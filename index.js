@@ -1,25 +1,22 @@
 const express = require('express');
-const cors_proxy = require('cors-anywhere');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 
-// Serve static files from the 'public' directory
-app.use(express.static('public'));
+// Proxy setup
+app.use('/', createProxyMiddleware({
+    target: 'https://replit.com', // Target site
+    changeOrigin: true,
+    pathRewrite: {
+        '^/': '/', // Rewrite the base path if needed
+    },
+    onProxyReq: (proxyReq, req, res) => {
+        // Modify headers if necessary
+        proxyReq.setHeader('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36');
+    }
+}));
 
-// Start the CORS Anywhere proxy server
-const host = process.env.HOST || '0.0.0.0';
-const port = process.env.PORT || 8080;
-
-cors_proxy.createServer({
-    originWhitelist: [], // Allow all origins
-    requireHeader: ['origin', 'x-requested-with'],
-    removeHeaders: ['cookie', 'cookie2']
-}).listen(port, host, function() {
-    console.log('Running CORS Anywhere on ' + host + ':' + port);
-});
-
-// Start the Express server
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+    console.log(`Proxy server is running on http://localhost:${PORT}`);
 });
